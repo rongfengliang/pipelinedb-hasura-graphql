@@ -1,0 +1,18 @@
+version: "3"
+services:
+  db:
+   image: dalongrong/pipelinedb:1.0.0
+   environment:
+   - "POSTGRES_PASSWORD=dalongdemo"
+   ports:
+   - "5432:5432"
+  graphql-engine:
+    image: hasura/graphql-engine:v1.0.0-alpha25
+    ports:
+    - "8080:8080"
+    environment:
+    - "POSTGRES_PASSWORD:dalongdemo"
+    command: >
+      /bin/sh -c "
+      graphql-engine --database-url postgres://postgres:dalongdemo@db/postgres serve --enable-console;
+      "
